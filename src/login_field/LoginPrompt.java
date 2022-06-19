@@ -1,5 +1,7 @@
 package login_field;
 
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableArray;
@@ -25,10 +27,10 @@ public final class LoginPrompt {
     private final Label passwordLabel;
     private final Button validate;
     private final HashMap<String, String> cacheUsers;
-    private List<Boolean> conditions;
-    private ObservableList<Boolean> condition;
-    private Label logged;
-    private boolean cond;
+    private final Label logged;
+    private final Button signIn;
+    private boolean sign;
+
     /**
      * Public constructor for the login prompt, that is
      * never used, except for automatically in the call plane,
@@ -43,12 +45,9 @@ public final class LoginPrompt {
         this.passwordLabel = new Label("Password : ");
         this.validate = new Button("Login");
         this.cacheUsers = users.getUsers();
-        this.conditions = new ArrayList<>();
-        this.condition = FXCollections.observableList(conditions);
         this.logged = new Label();
-        cond = false;
-        conditions.add(false);
-        conditions.add(false);
+        this.signIn = new Button("Sign Up?");
+        this.sign = false;
 
         //Setting the size for the attributes
         pane.setMaxSize(L_WIDTH, L_HEIGHT);
@@ -63,9 +62,10 @@ public final class LoginPrompt {
         passwordLabel.setMaxSize(100, 30);
         validate.setMaxSize(50, 30);
         validate.setMinSize(50, 30);
-        logged.setMaxSize(50, 20);
-        logged.setMinSize(50, 20);
-        System.out.println(conditions.size());
+        logged.setMaxSize(90, 30);
+        logged.setMinSize(90, 30);
+        signIn.setMaxSize(90, 30);
+        signIn.setMinSize(90, 30);
         //cond[0] is true if login successful, cond[1] true if you can sign up
 
         //Adding the attributes to the pane
@@ -75,6 +75,7 @@ public final class LoginPrompt {
         pane.getChildren().add(passwordLabel);
         pane.getChildren().add(validate);
         pane.getChildren().add(logged);
+        pane.getChildren().add(signIn);
 
         //Setting the correct placement for each attribute
         usernameLabel.setLayoutX(20);
@@ -85,50 +86,42 @@ public final class LoginPrompt {
         passwordLabel.setLayoutY(70);
         passwordField.setLayoutX(130);
         passwordField.setLayoutY(70);
-        validate.setLayoutX(125);
+        validate.setLayoutX(200);
         validate.setLayoutY(120);
-        logged.setLayoutX(125);
-        logged.setLayoutY(150);
+        logged.setLayoutX(20);
+        logged.setLayoutY(120);
+        signIn.setLayoutX(20);
+        signIn.setLayoutY(120);
         logged.setVisible(false);
-
-        List<Boolean> conditions = new ArrayList();
-        condition.addListener((ListChangeListener<? super Boolean>) c -> {
-            /**if(conditions.get(0) == true) {
-                logged.setText("Success");
-            } else {
-                if(conditions.get(1) == true) {
-                    logged.setText("Sign Up?");
-                } else {
-                    logged.setText("Wrong combo");
-                }
-            }
-            logged.setVisible(true);
-             */
-            if(cond){
-                logged.setText("Sign Up?");
-                logged.setVisible(true);
-            }
-        });
+        signIn.setVisible(false);
 
         //Giving the Login button functionality
         validate.setOnAction(e -> {
             if(Users.login(usernameField.getText(), passwordField.getText())[0]) {
                 if(Users.login(usernameField.getText(), passwordField.getText())[1]) {
-                    conditions.set(0, true);
+                    logged.setText("Success!");
+                    logged.setVisible(true);
                 } else {
-                    conditions.set(0, false);
+                    logged.setText("Wrong Combination");
+                    logged.setVisible(true);
                 }
-                conditions.set(0, false);
             } else {
-                //conditions.set(1, true);
-                cond = true;
-                logged.setText("Sign Up?");
-                logged.setVisible(true);
+                signIn.setVisible(true);
             }
         });
 
-        usernameField.setOnMouseClicked(e -> logged.setVisible(false));
-        passwordField.setOnMouseClicked(e -> logged.setVisible(false));
+        usernameField.setOnMouseClicked(e -> {
+            logged.setVisible(false);
+            signIn.setVisible(false);
+            sign = false;
+        });
+        passwordField.setOnMouseClicked(e -> {
+            logged.setVisible(false);
+            signIn.setVisible(false);
+            sign = false;
+        });
+
+        signIn.setOnAction(e -> sign = true);
     }
 
     public Pane pane() {
