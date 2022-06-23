@@ -1,5 +1,6 @@
 package login_field;
 
+import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,7 +36,10 @@ public class Prompt {
         node.setMinSize(width, length);
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUsers(Users users, String name, String word) {
+        this.users.getUsers().put(name, word);
+    }
+    public ObservableMap<String, String> getU() {
+        return this.users.getUsers();
     }
 }

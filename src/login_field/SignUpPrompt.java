@@ -71,10 +71,12 @@ public final class SignUpPrompt extends Prompt{
                     text.setText("Enter Password");
                     text.setVisible(true);
                     usernameField.setText("");
+                    passwordField.setText("");
                 }
             } else {
                 text.setText("Enter username");
                 text.setVisible(true);
+                usernameField.setText("");
                 passwordField.setText("");
             }
         });

@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
+import java.util.Objects;
+
 public final class LoginPrompt extends Prompt{
     //Constants for the class
     private static final double PANE_WIDTH = 300;
@@ -73,38 +75,48 @@ public final class LoginPrompt extends Prompt{
         validate.setLayoutY(120);
         logged.setLayoutX(20);
         logged.setLayoutY(120);
-        signIn.setLayoutX(20);
+        signIn.setLayoutX(200);
         signIn.setLayoutY(120);
         logged.setVisible(false);
         signIn.setVisible(false);
 
         //Giving the Login button functionality
         validate.setOnMouseClicked(e -> {
-            if(users.login(usernameField.getText(), passwordField.getText())[0]) {
-                if(users.login(usernameField.getText(), passwordField.getText())[1]) {
+            if (users.getUsers().containsKey(usernameField.getText())) {
+                if (Objects.equals(users.getUsers().get(usernameField.getText()), passwordField.getText())) {
                     logged.setText("Success!");
-                    logged.setVisible(true);
                 } else {
-                    logged.setText("Wrong Combination");
-                    logged.setVisible(true);
+                    logged.setText("Wrong Password");
+                    validate.setVisible(false);
+                    signIn.setVisible(true);
                 }
             } else {
+                logged.setText("No such user");
+                validate.setVisible(false);
                 signIn.setVisible(true);
             }
+            logged.setVisible(true);
         });
+
 
         usernameField.setOnMouseClicked(e -> {
             logged.setVisible(false);
             signIn.setVisible(false);
+            validate.setVisible(true);
+            usernameField.setText("");
         });
         passwordField.setOnMouseClicked(e -> {
             logged.setVisible(false);
             signIn.setVisible(false);
+            validate.setVisible(true);
+            passwordField.setText("");
         });
 
         signIn.setOnMouseClicked(e -> {
             sign.setValue(true);
             signIn.setVisible(false);
+            validate.setVisible(true);
+            logged.setVisible(false);
             usernameField.setText("");
             passwordField.setText("");
         });

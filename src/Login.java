@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.MapChangeListener;
@@ -61,8 +62,8 @@ public class Login extends Application {
         }
         });
         users.getUsers().addListener((MapChangeListener<? super String, ? super String>) e -> {
-            loginPane.setUsers(users);
-            signUpPane.setUsers(users);
+            loginPane.setUsers(users, e.getKey(), e.getValueAdded());
+            signUpPane.setUsers(users, e.getKey(), e.getValueAdded());
         });
     }
 }
