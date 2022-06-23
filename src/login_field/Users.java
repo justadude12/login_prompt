@@ -1,11 +1,17 @@
 package login_field;
 
+import javafx.beans.property.MapProperty;
+import javafx.beans.property.SimpleMapProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
+
 import java.util.HashMap;
 
 public final class Users {
-    private static final HashMap<String, String> users = new HashMap<>();
+    ObservableMap<String, String> users = FXCollections.observableHashMap();
+    MapProperty<String, String> user = new SimpleMapProperty(users);
 
-    public static boolean signUp(String username, String password) {
+    public boolean signUp(String username, String password) {
         if(users.containsKey(username)){
             return false;
         }
@@ -13,7 +19,7 @@ public final class Users {
         return true;
     }
 
-    public static boolean[] login(String username, String password) {
+    public boolean[] login(String username, String password) {
         boolean[] validity = {false, false};
         if(users.containsKey(username)) {
             validity[0] = true;
@@ -23,7 +29,7 @@ public final class Users {
         }
         return validity;
     }
-    protected HashMap<String, String> getUsers() {
+    public ObservableMap<String, String> getUsers() {
         return users;
     }
 }

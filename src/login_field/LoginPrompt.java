@@ -1,35 +1,25 @@
 package login_field;
 
-import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public final class LoginPrompt {
+public final class LoginPrompt extends Prompt{
     //Constants for the class
-    private static final double L_WIDTH = 300;
-    private static final double L_HEIGHT = 170;
+    private static final double PANE_WIDTH = 300;
+    private static final double PANE_HEIGHT = 170;
+    private static final double TEXTFIELD_WIDTH = 150;
+    private static final double TEXTFIELD_HEIGHT = 30;
+    private static final double LABEL_WIDTH = 100;
+    private static final double LABEL_HEIGHT = 30;
     //Attributes of the login prompt
-    private final Pane pane;
-    private final TextField usernameField;
-    private final TextField passwordField;
-    private final Label usernameLabel;
-    private final Label passwordLabel;
     private final Button validate;
-    private final HashMap<String, String> cacheUsers;
     private final Label logged;
     private final Button signIn;
-    private boolean sign;
+    private BooleanProperty sign;
 
     /**
      * Public constructor for the login prompt, that is
@@ -38,28 +28,21 @@ public final class LoginPrompt {
      */
     public LoginPrompt(Users users) {
         //Initialising all the attributes
-        this.pane = new Pane();
-        this.usernameField = new TextField();
-        this.passwordField = new TextField();
-        this.usernameLabel = new Label("Username : ");
-        this.passwordLabel = new Label("Password : ");
+        super(users,
+                new Pane(),
+                new TextField(),
+                new TextField(),
+                new Label("Username : "),
+                new Label("Password : "),
+                PANE_WIDTH, PANE_HEIGHT,
+                TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT,
+                LABEL_WIDTH, LABEL_HEIGHT);
         this.validate = new Button("Login");
-        this.cacheUsers = users.getUsers();
         this.logged = new Label();
         this.signIn = new Button("Sign Up?");
-        this.sign = false;
+        this.sign = new SimpleBooleanProperty(false);
 
         //Setting the size for the attributes
-        pane.setMaxSize(L_WIDTH, L_HEIGHT);
-        pane.setMinSize(L_WIDTH, L_HEIGHT);
-        usernameField.setMinSize(150, 30);
-        usernameField.setMaxSize(150, 30);
-        passwordField.setMinSize(150, 30);
-        passwordField.setMaxSize(150, 30);
-        usernameLabel.setMinSize(100, 30);
-        usernameLabel.setMaxSize(100, 30);
-        passwordLabel.setMinSize(100, 30);
-        passwordLabel.setMaxSize(100, 30);
         validate.setMaxSize(50, 30);
         validate.setMinSize(50, 30);
         logged.setMaxSize(90, 30);
@@ -96,9 +79,9 @@ public final class LoginPrompt {
         signIn.setVisible(false);
 
         //Giving the Login button functionality
-        validate.setOnAction(e -> {
-            if(Users.login(usernameField.getText(), passwordField.getText())[0]) {
-                if(Users.login(usernameField.getText(), passwordField.getText())[1]) {
+        validate.setOnMouseClicked(e -> {
+            if(users.login(usernameField.getText(), passwordField.getText())[0]) {
+                if(users.login(usernameField.getText(), passwordField.getText())[1]) {
                     logged.setText("Success!");
                     logged.setVisible(true);
                 } else {
@@ -113,18 +96,24 @@ public final class LoginPrompt {
         usernameField.setOnMouseClicked(e -> {
             logged.setVisible(false);
             signIn.setVisible(false);
-            sign = false;
         });
         passwordField.setOnMouseClicked(e -> {
             logged.setVisible(false);
             signIn.setVisible(false);
-            sign = false;
         });
 
-        signIn.setOnAction(e -> sign = true);
+        signIn.setOnMouseClicked(e -> {
+            sign.setValue(true);
+            signIn.setVisible(false);
+            usernameField.setText("");
+            passwordField.setText("");
+        });
     }
 
     public Pane pane() {
         return pane;
+    }
+    public BooleanProperty sign() {
+        return this.sign;
     }
 }
