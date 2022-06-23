@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
@@ -22,7 +23,7 @@ public final class SignUpPrompt extends Prompt{
         super(users,
                 new Pane(),
                 new TextField(),
-                new TextField(),
+                new PasswordField(),
                 new Label("Username : "),
                 new Label("Password : "),
                 PANE_WIDTH, PANE_HEIGHT,

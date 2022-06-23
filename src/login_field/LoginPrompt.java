@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 
 public final class LoginPrompt extends Prompt{
     //Constants for the class
-    private static final double PANE_WIDTH = 300;
+    private static final double PANE_WIDTH = 320;
     private static final double PANE_HEIGHT = 170;
     private static final double TEXTFIELD_WIDTH = 150;
     private static final double TEXTFIELD_HEIGHT = 30;
@@ -33,7 +34,7 @@ public final class LoginPrompt extends Prompt{
         super(users,
                 new Pane(),
                 new TextField(),
-                new TextField(),
+                new PasswordField(),
                 new Label("Username : "),
                 new Label("Password : "),
                 PANE_WIDTH, PANE_HEIGHT,
