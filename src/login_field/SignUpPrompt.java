@@ -8,14 +8,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public final class SignUpPrompt extends Prompt{
-    private static final double PANE_WIDTH = 300;
+    private static final double PANE_WIDTH = 320;
     private static final double PANE_HEIGHT = 170;
     private static final double TEXTFIELD_WIDTH = 150;
     private static final double TEXTFIELD_HEIGHT = 30;
     private static final double LABEL_WIDTH = 100;
     private static final double LABEL_HEIGHT = 30;
     private final Button signUp;
-    private BooleanProperty sign;
+    private final BooleanProperty sign;
     private final Label text;
 
     public SignUpPrompt(Users users) {

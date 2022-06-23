@@ -21,7 +21,7 @@ public final class LoginPrompt extends Prompt{
     private final Button validate;
     private final Label logged;
     private final Button signIn;
-    private BooleanProperty sign;
+    private final BooleanProperty sign;
 
     /**
      * Public constructor for the login prompt, that is
