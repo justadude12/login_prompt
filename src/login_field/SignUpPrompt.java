@@ -6,7 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+
+import java.util.Objects;
 
 public final class SignUpPrompt extends Prompt{
     private static final double PANE_WIDTH = 320;
@@ -79,6 +82,60 @@ public final class SignUpPrompt extends Prompt{
                 text.setVisible(true);
                 usernameField.setText("");
                 passwordField.setText("");
+            }
+        });
+        usernameField.setOnKeyPressed(e -> {
+            if(e.getCode() == KeyCode.ENTER) {
+                if(!usernameField.getText().isEmpty()) {
+                    if(!passwordField.getText().isEmpty()) {
+                        if(!users.getUsers().containsKey(usernameField.getText())){
+                            users.getUsers().put(usernameField.getText(), passwordField.getText());
+                            sign.setValue(true);
+                        } else {
+                            text.setText("User exists");
+                            text.setVisible(true);
+                            usernameField.setText("");
+                            passwordField.setText("");
+                        }
+                    } else {
+                        text.setText("Enter Password");
+                        text.setVisible(true);
+                        usernameField.setText("");
+                        passwordField.setText("");
+                    }
+                } else {
+                    text.setText("Enter username");
+                    text.setVisible(true);
+                    usernameField.setText("");
+                    passwordField.setText("");
+                }
+            }
+        });
+        passwordField.setOnKeyPressed(e -> {
+            if(e.getCode() == KeyCode.ENTER) {
+                if(!usernameField.getText().isEmpty()) {
+                    if(!passwordField.getText().isEmpty()) {
+                        if(!users.getUsers().containsKey(usernameField.getText())){
+                            users.getUsers().put(usernameField.getText(), passwordField.getText());
+                            sign.setValue(true);
+                        } else {
+                            text.setText("User exists");
+                            text.setVisible(true);
+                            usernameField.setText("");
+                            passwordField.setText("");
+                        }
+                    } else {
+                        text.setText("Enter Password");
+                        text.setVisible(true);
+                        usernameField.setText("");
+                        passwordField.setText("");
+                    }
+                } else {
+                    text.setText("Enter username");
+                    text.setVisible(true);
+                    usernameField.setText("");
+                    passwordField.setText("");
+                }
             }
         });
     }

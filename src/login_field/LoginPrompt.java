@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 import java.util.Objects;
@@ -120,6 +121,42 @@ public final class LoginPrompt extends Prompt{
             logged.setVisible(false);
             usernameField.setText("");
             passwordField.setText("");
+        });
+        usernameField.setOnKeyPressed(e -> {
+            if(e.getCode() == KeyCode.ENTER) {
+                if (users.getUsers().containsKey(usernameField.getText())) {
+                    if (Objects.equals(users.getUsers().get(usernameField.getText()), passwordField.getText())) {
+                        logged.setText("Success!");
+                    } else {
+                        logged.setText("Wrong Password");
+                        validate.setVisible(false);
+                        signIn.setVisible(true);
+                    }
+                } else {
+                    logged.setText("No such user");
+                    validate.setVisible(false);
+                    signIn.setVisible(true);
+                }
+                logged.setVisible(true);
+            }
+        });
+        passwordField.setOnKeyPressed(e -> {
+            if(e.getCode() == KeyCode.ENTER) {
+                if (users.getUsers().containsKey(usernameField.getText())) {
+                    if (Objects.equals(users.getUsers().get(usernameField.getText()), passwordField.getText())) {
+                        logged.setText("Success!");
+                    } else {
+                        logged.setText("Wrong Password");
+                        validate.setVisible(false);
+                        signIn.setVisible(true);
+                    }
+                } else {
+                    logged.setText("No such user");
+                    validate.setVisible(false);
+                    signIn.setVisible(true);
+                }
+                logged.setVisible(true);
+            }
         });
     }
 

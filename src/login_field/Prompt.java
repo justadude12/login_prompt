@@ -5,8 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+
+import java.security.Key;
 
 public class Prompt {
     protected Pane pane;
@@ -27,7 +31,7 @@ public class Prompt {
         this.usernameLabel = usernameLabel;
         this.passwordLabel = passwordLabel;
         this.users = new Users();
-        this.show = new Button();
+        this.show = new Button("*");
         this.passwordF = new TextField();
 
         setSize(this.pane, pw, ph);
