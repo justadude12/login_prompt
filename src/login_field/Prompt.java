@@ -1,16 +1,12 @@
 package login_field;
 
-import javafx.collections.ObservableMap;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
-import java.security.Key;
 
 public class Prompt {
     protected Pane pane;
@@ -21,6 +17,7 @@ public class Prompt {
     protected Label passwordLabel;
     protected Button show;
     protected Users users;
+    protected Button clearUsers;
 
     protected Prompt(Users users, Pane pane, TextField usernameField, PasswordField passwordField,
                      Label usernameLabel, Label passwordLabel, double pw, double ph,
@@ -33,6 +30,7 @@ public class Prompt {
         this.users = new Users();
         this.show = new Button("*");
         this.passwordF = new TextField();
+        this.clearUsers = new Button("del Users");
 
         setSize(this.pane, pw, ph);
         setSize(this.usernameField, tw, th);
@@ -41,8 +39,11 @@ public class Prompt {
         setSize(this.passwordLabel, lw, lh);
         setSize(this.show, 30, 30);
         setSize(this.passwordF, tw, th);
+        setSize(this.clearUsers, 100, 25);
         pane.getChildren().add(show);
         pane.getChildren().add(passwordF);
+        pane.getChildren().add(clearUsers);
+
         show.setLayoutX(290);
         show.setLayoutY(70);
         passwordF.setVisible(false);
@@ -58,11 +59,15 @@ public class Prompt {
             passwordF.setVisible(false);
             passwordField.setVisible(true);
         });
+
+        clearUsers.setOnMouseClicked(e -> {
+            UserList.deleteUsers();
+        });
     }
 
-    private void setSize(Region node, double width, double length) {
-        node.setMaxSize(width, length);
-        node.setMinSize(width, length);
+    private void setSize(Region node, double width, double heigth) {
+        node.setMaxSize(width, heigth);
+        node.setMinSize(width, heigth);
     }
 
     public void setUsers(Users users, String name, String word) {

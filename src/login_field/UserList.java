@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class UserList {
     private static String PATH = "userlist.txt";
+    private static int MAX_USERS = 200;
     public static File createUserFile() {
         try{
             File Users = new File(PATH);
@@ -21,39 +22,27 @@ public class UserList {
     public static boolean addUser(String username, String password){
         try{
             FileWriter newUser = new FileWriter(createUserFile());
-            newUser.write(username);
-            newUser.write(System.getProperty("line.separator"));
-            newUser.write(password);
-            newUser.write(System.getProperty("line.separator"));
-            newUser.close();
-            return true;
+            Scanner read = new Scanner(createUserFile());
+            int userNumber = 0;
+            while(read.hasNextLine()) {
+                userNumber++;
+            }
+            if(userNumber < 2 * MAX_USERS) {
+                newUser.write(username);
+                newUser.write(System.getProperty("line.separator"));
+                newUser.write(password);
+                newUser.write(System.getProperty("line.separator"));
+                newUser.close();
+                return true;
+            } else {
+                return false;
+            }
         } catch(IOException e) {
             e.printStackTrace();
             return false;
         }
     }
-    public static boolean userExists(String username, String password) {
-        boolean user = false;
-        boolean word = false;
-        int i = 0;
-        Scanner userReader = new Scanner(PATH);
-        while(userReader.hasNextLine()) {
-            String data = userReader.nextLine();
-            if(i % 2 == 0) {
-                if(data.equals(username)) {
-                    user = true;
-                } else {
-                    user = false;
-                }
-            }
-            if(i % 2 == 1 && user) {
-                if(data.equals(password)) {
-                    word = true;
-                    return true;
-                }
-            }
-            i++;
-        }
-        return false;
+    public static void deleteUsers() {
+        createUserFile().delete();
     }
 }
