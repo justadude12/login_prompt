@@ -64,6 +64,7 @@ public final class SignUpPrompt extends Prompt{
                 if(!passwordField.getText().isEmpty()) {
                     if(!users.getUsers().containsKey(usernameField.getText())){
                         users.getUsers().put(usernameField.getText(), passwordField.getText());
+                        UserList.addUser(usernameField.getText(), passwordField.getText());
                         sign.setValue(true);
                     } else {
                         text.setText("User exists");
@@ -90,6 +91,7 @@ public final class SignUpPrompt extends Prompt{
                     if(!passwordField.getText().isEmpty()) {
                         if(!users.getUsers().containsKey(usernameField.getText())){
                             users.getUsers().put(usernameField.getText(), passwordField.getText());
+                            UserList.addUser(usernameField.getText(), passwordField.getText());
                             sign.setValue(true);
                         } else {
                             text.setText("User exists");
@@ -117,6 +119,7 @@ public final class SignUpPrompt extends Prompt{
                     if(!passwordField.getText().isEmpty()) {
                         if(!users.getUsers().containsKey(usernameField.getText())){
                             users.getUsers().put(usernameField.getText(), passwordField.getText());
+                            UserList.addUser(usernameField.getText(), passwordField.getText());
                             sign.setValue(true);
                         } else {
                             text.setText("User exists");
