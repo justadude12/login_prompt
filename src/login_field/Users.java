@@ -21,13 +21,13 @@ public final class Users {
             String word = "";
             while(reader.hasNextLine()) {
                 String data = reader.nextLine();
-                System.out.println(data);
                 if(i % 2 == 0) {
                     name = data;
                 } else {
                     word = data;
                     users.put(name, word);
                 }
+                i++;
             }
         } catch (Exception e) {
 
