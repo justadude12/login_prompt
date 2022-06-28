@@ -84,8 +84,9 @@ public final class LoginPrompt extends Prompt{
 
         //Giving the Login button functionality
         validate.setOnMouseClicked(e -> {
-            if (users.getUsers().containsKey(usernameField.getText())) {
-                if (Objects.equals(users.getUsers().get(usernameField.getText()), passwordField.getText())) {
+            if (users.getUsers().containsKey(String.valueOf(usernameField.getText().hashCode()))) {
+                if (Objects.equals(users.getUsers().get(String.valueOf(usernameField.getText().hashCode())),
+                        String.valueOf(passwordField.getText().hashCode()))) {
                     logged.setText("Success!");
                 } else {
                     logged.setText("Wrong Password");
@@ -124,8 +125,9 @@ public final class LoginPrompt extends Prompt{
         });
         usernameField.setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.ENTER) {
-                if (users.getUsers().containsKey(usernameField.getText())) {
-                    if (Objects.equals(users.getUsers().get(usernameField.getText()), passwordField.getText())) {
+                if (users.getUsers().containsKey(String.valueOf(usernameField.getText().hashCode()))) {
+                    if (Objects.equals(users.getUsers().get(String.valueOf(usernameField.getText().hashCode())),
+                            String.valueOf(passwordField.getText().hashCode()))) {
                         logged.setText("Success!");
                     } else {
                         logged.setText("Wrong Password");
@@ -142,8 +144,9 @@ public final class LoginPrompt extends Prompt{
         });
         passwordField.setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.ENTER) {
-                if (users.getUsers().containsKey(usernameField.getText())) {
-                    if (Objects.equals(users.getUsers().get(usernameField.getText()), passwordField.getText())) {
+                if (users.getUsers().containsKey(String.valueOf(usernameField.getText().hashCode()))) {
+                    if (Objects.equals(users.getUsers().get(String.valueOf(usernameField.getText().hashCode())),
+                            String.valueOf(passwordField.getText().hashCode()))) {
                         logged.setText("Success!");
                     } else {
                         logged.setText("Wrong Password");

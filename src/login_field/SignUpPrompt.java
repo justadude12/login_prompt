@@ -62,8 +62,9 @@ public final class SignUpPrompt extends Prompt{
         signUp.setOnMouseClicked(e -> {
             if(!usernameField.getText().isEmpty()) {
                 if(!passwordField.getText().isEmpty()) {
-                    if(!users.getUsers().containsKey(usernameField.getText())){
-                        users.getUsers().put(usernameField.getText(), passwordField.getText());
+                    if(!users.getUsers().containsKey(String.valueOf(usernameField.getText().hashCode()))){
+                        users.getUsers().put(String.valueOf(usernameField.getText().hashCode()),
+                                String.valueOf(passwordField.getText().hashCode()));
                         UserList.addUser(usernameField.getText(), passwordField.getText());
                         sign.setValue(true);
                     } else {
@@ -89,8 +90,9 @@ public final class SignUpPrompt extends Prompt{
             if(e.getCode() == KeyCode.ENTER) {
                 if(!usernameField.getText().isEmpty()) {
                     if(!passwordField.getText().isEmpty()) {
-                        if(!users.getUsers().containsKey(usernameField.getText())){
-                            users.getUsers().put(usernameField.getText(), passwordField.getText());
+                        if(!users.getUsers().containsKey(String.valueOf(usernameField.getText().hashCode()))){
+                            users.getUsers().put(String.valueOf(usernameField.getText().hashCode()),
+                                    String.valueOf(passwordField.getText().hashCode()));
                             UserList.addUser(usernameField.getText(), passwordField.getText());
                             sign.setValue(true);
                         } else {
@@ -117,8 +119,9 @@ public final class SignUpPrompt extends Prompt{
             if(e.getCode() == KeyCode.ENTER) {
                 if(!usernameField.getText().isEmpty()) {
                     if(!passwordField.getText().isEmpty()) {
-                        if(!users.getUsers().containsKey(usernameField.getText())){
-                            users.getUsers().put(usernameField.getText(), passwordField.getText());
+                        if(!users.getUsers().containsKey(String.valueOf(usernameField.getText().hashCode()))){
+                            users.getUsers().put(String.valueOf(usernameField.getText().hashCode()),
+                                    String.valueOf(passwordField.getText().hashCode()));
                             UserList.addUser(usernameField.getText(), passwordField.getText());
                             sign.setValue(true);
                         } else {

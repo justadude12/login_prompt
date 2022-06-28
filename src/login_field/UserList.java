@@ -28,9 +28,9 @@ public class UserList {
                 userNumber++;
             }
             if(userNumber < 2 * MAX_USERS) {
-                newUser.write(username);
+                newUser.write(String.valueOf(username.hashCode()));
                 newUser.write(System.getProperty("line.separator"));
-                newUser.write(password);
+                newUser.write(String.valueOf(password.hashCode()));
                 newUser.write(System.getProperty("line.separator"));
                 newUser.close();
                 return true;
